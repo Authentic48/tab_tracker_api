@@ -1,12 +1,11 @@
 const bcryptjs = require('bcryptjs')
-const Sequelize = require('sequelize')
+const { Sequelize, DataTypes } = require('sequelize')
 const sequelize = require('../Config/db')
 
 
 const User = sequelize.define("users", {
     name: {
         type: Sequelize.STRING,
-        unique: true,
         allowNull: false
     },
     email: {
@@ -19,7 +18,8 @@ const User = sequelize.define("users", {
         default: false,
     },
     password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
     }
 });
 

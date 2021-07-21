@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs')
 // @Access  Public
 const registerUser = asyncHandler(async (req, res) => {
 
-    const { name, email, password } = req.body;
+    const { name, email, password, isAdmin } = req.body;
 
     const userExist = await User.findOne({ where: { email: email } } )
 
@@ -22,6 +22,7 @@ const registerUser = asyncHandler(async (req, res) => {
         name,
         email,
         password: hashedPassword,
+        isAdmin
     })
     if (user) {
         res.status(201).json({

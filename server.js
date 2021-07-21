@@ -2,18 +2,17 @@ const express = require('express')
 const colors = require('colors')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
-const sequelize  = require('./Config/db')
+const sequelize = require('./Config/db')
 
 const userRoute = require('./Routes/userRoute')
 
-const {errorHandler, notFound } = require('./middlewares/errorHandler')
+const { errorHandler, notFound } = require('./middlewares/errorHandler')
 
 dotenv.config()
 
 const app = express()
 
-if(process.env.NODE_ENV === 'development')
-{
+if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
 app.use(express.json())
