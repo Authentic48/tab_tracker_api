@@ -6,6 +6,8 @@ const sequelize  = require('./Config/db')
 
 const userRoute = require('./Routes/userRoute')
 
+const {errorHandler, notFound } = require('./middlewares/errorHandler')
+
 dotenv.config()
 
 const app = express()
@@ -25,6 +27,10 @@ sequelize.sync()
 
 //Routes
 app.use('/api/users', userRoute)
+
+
+app.use(notFound)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
