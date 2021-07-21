@@ -18,7 +18,7 @@ app.use(express.json())
 
 
 //DB test 
-sequelize.sync({ force: true })
+sequelize.sync()
     .then(() => console.log('DB connected'))
     .catch(err => console.log('Error: ' + err))
 
