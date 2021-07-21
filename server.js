@@ -1,19 +1,30 @@
 const express = require('express')
 const colors = require('colors')
 const dotenv = require('dotenv')
-const { db }= require('./Config/db')
+const morgan = require('morgan')
+const sequelize  = require('./Config/db')
 
+const userRoute = require('./Routes/userRoute')
 
 dotenv.config()
 
 const app = express()
 
+if(process.env.NODE_ENV === 'development')
+{
+    app.use(morgan('dev'))
+}
+app.use(express.json())
+
+
 //DB test 
-db.authenticate()
+sequelize.sync({ force: true })
     .then(() => console.log('DB connected'))
     .catch(err => console.log('Error: ' + err))
 
 
+//Routes
+app.use('/api/users', userRoute)
 
 const PORT = process.env.PORT || 5000
 
