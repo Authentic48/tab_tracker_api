@@ -17,6 +17,10 @@ const User = sequelize.define("users", {
         type: Sequelize.BOOLEAN,
         default: false,
     },
+    isArtist: {
+        type: Sequelize.BOOLEAN,
+        default: false,
+    },
     password: {
         type: Sequelize.STRING,
         allowNull: false,

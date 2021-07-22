@@ -5,7 +5,7 @@ const morgan = require('morgan')
 const sequelize = require('./Config/db')
 
 const userRoute = require('./Routes/userRoute')
-
+const songRoute = require('./Routes/songRoute')
 const { errorHandler, notFound } = require('./middlewares/errorHandler')
 
 dotenv.config()
@@ -26,6 +26,7 @@ sequelize.sync()
 
 //Routes
 app.use('/api/users', userRoute)
+app.use('/api/songs', songRoute)
 
 
 app.use(notFound)

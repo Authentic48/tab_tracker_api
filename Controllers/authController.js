@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 
 
 // @desc   register new user 
-// @route   GET /api/users
+// @route   GET /api/users/register
 // @Access  Public
 const registerUser = asyncHandler(async (req, res) => {
 
@@ -38,6 +38,9 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 })
 
+// @desc   login existing user 
+// @route   GET /api/users/login
+// @Access  Public
 const authUser = asyncHandler(async (req, res) => {
 
     const { email, password } = req.body;
@@ -69,20 +72,14 @@ const authUser = asyncHandler(async (req, res) => {
 
 })
 
+// @desc   Get list of all users 
+// @route   GET /api/users
+// @Access  Private/admin
 const getUser =  asyncHandler(async (req, res) => { 
       
     const users = await User.findAll({})
-
     return res.json(users)
 })
-
-
-//Password matching 
-function matchPassword(enteredPassword, userPassword) 
-{
-   return bcrypt.compare(enteredPassword, userPassword)
-}
-
 
 module.exports = { registerUser, authUser, getUser };
 
