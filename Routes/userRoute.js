@@ -8,7 +8,7 @@ router.route('/register').post(registerUser)
 
 router.route('/login').post(authUser)
 
-router.route('/').get(protect, admin, getUserById)
+router.route('/').get(getUsers)
 
 router.route('/update').put(protect, updateUser)
 

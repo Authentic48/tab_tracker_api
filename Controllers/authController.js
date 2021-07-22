@@ -147,7 +147,5 @@ const getUserById = asyncHandler(async (req, res) => {
 
 })
 
-
-
 module.exports = { registerUser, authUser, getUsers, deleteUser, getUserById, updateUser };
 
