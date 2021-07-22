@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs')
 // @Access  Public
 const registerUser = asyncHandler(async (req, res) => {
 
-    const { name, email, password, isAdmin } = req.body;
+    const { name, email, password, isAdmin, isArtist } = req.body;
 
     const userExist = await User.findOne({ where: { email: email } } )
 
@@ -22,7 +22,8 @@ const registerUser = asyncHandler(async (req, res) => {
         name,
         email,
         password: hashedPassword,
-        isAdmin
+        isAdmin,
+        isArtist
     })
     if (user) {
         res.status(201).json({
@@ -30,6 +31,7 @@ const registerUser = asyncHandler(async (req, res) => {
             email: user.email,
             name: user.name,
             isAdmin: user.isAdmin,
+            isArtist: user.isArtist,
             token: generateWebToken(user.id),
         })
     } else {
@@ -44,14 +46,12 @@ const registerUser = asyncHandler(async (req, res) => {
 const authUser = asyncHandler(async (req, res) => {
 
     const { email, password } = req.body;
-
     const user =  await User.findOne({ where: { email: email } } )
-
 
     if (user) {
 
         const validPassword = await bcrypt.compare(password, user.password)
-
+        
         if(validPassword)
         {
             return res.json({

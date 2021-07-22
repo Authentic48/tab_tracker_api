@@ -4,11 +4,11 @@ const { protect, admin, artist } = require('../Middlewares/authMiddleware')
 
 const router = express.Router()
 
-router.route('/create').post(addSong)
+router.route('/create').post(protect, addSong)
 
 router.route('/').get(getAllSongs)
 
-router.route('/:id').put(updateSong).get(getSong).delete(deleteSong)
+router.route('/:id').put(protect, admin, artist, updateSong).get(getSong).delete(protect, admin, artist, deleteSong)
 
 module.exports = router;
 

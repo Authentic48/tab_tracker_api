@@ -38,13 +38,13 @@ const updateSong = asyncHandler(async (req, res) => {
 
     if (song) {
         song.title = req.body.title || song.title,
-            song.artist = req.body.artist || song.artist,
-            song.genre = req.body.genre || song.genre,
-            song.album = req.body.album || song.album,
-            song.albumImageUrl = req.body.albumImageUrl || song.albumImageUrl,
-            song.youtubeId = req.body.youtubeId || song.youtubeId,
-            song.lyrics = req.body.lyrics || song.lyrics,
-            song.tab = req.body.tab || song.tab
+        song.artist = req.body.artist || song.artist,
+        song.genre = req.body.genre || song.genre,
+        song.album = req.body.album || song.album,
+        song.albumImageUrl = req.body.albumImageUrl || song.albumImageUrl,
+        song.youtubeId = req.body.youtubeId || song.youtubeId,
+        song.lyrics = req.body.lyrics || song.lyrics,
+        song.tab = req.body.tab || song.tab
 
         const updatedSong = await song.save()
         return res.status(201).json(updatedSong)
@@ -62,12 +62,12 @@ const getSong = asyncHandler(async (req, res) => {
     const song = await Song.findByPk(req.params.id)
     if (song) {
         return res.json(song)
-    }else{ 
+    } else {
         return res.json('Song not found..')
     }
 })
 
-// @desc    get all songs
+// @desc    delete song
 // @route   GET /api/songs
 // @Access  Private / artist / admin
 const deleteSong = asyncHandler(async (req, res) => {
@@ -76,7 +76,7 @@ const deleteSong = asyncHandler(async (req, res) => {
     if (song) {
         song.destroy()
         return res.status(201).json('Sond deleted successfully')
-    }else{ 
+    } else {
         return res.status(404).json('Song not found..')
     }
 })
