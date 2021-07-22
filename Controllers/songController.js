@@ -18,10 +18,17 @@ const addSong = asyncHandler(async (req, res) => {
         lyrics, 
         tab
     })
-  
-    return res.status(201).json(song)
-    
+    return res.status(201).json(song)  
 })
 
-module.exports = { addSong,  };
+// @desc    get all songs
+// @route   GET /api/songs
+// @Access  Public
+const getAllSongs = asyncHandler(async (req, res) => {
+
+    const songs = await Song.findAll({})
+    return res.json(songs)
+})
+
+module.exports = { addSong,  getAllSongs };
 
