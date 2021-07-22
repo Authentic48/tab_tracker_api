@@ -1,24 +1,23 @@
 const Song = require('../Models/songModel.js')
-const asyncHandler = require('express-async-handler')
-
+const asyncHandler = require('express-async-handler');
 
 // @desc   add new song 
 // @route   GET /api/songs
-// @Access  Public
+// @Access  Private / admin / artist
 const addSong = asyncHandler(async (req, res) => {
 
     const { title, artist, genre, album, albumImageUrl, youtubeId, lyrics, tab } = req.body;
     const song = await Song.create({
         title,
-        artist, 
-        genre, 
-        album, 
-        albumImageUrl, 
-        youtubeId, 
-        lyrics, 
+        artist,
+        genre,
+        album,
+        albumImageUrl,
+        youtubeId,
+        lyrics,
         tab
     })
-    return res.status(201).json(song)  
+    return res.status(201).json(song)
 })
 
 // @desc    get all songs
@@ -32,31 +31,55 @@ const getAllSongs = asyncHandler(async (req, res) => {
 
 // @desc    get all songs
 // @route   GET /api/songs
-// @Access  Public
+// @Access  Private / artist / admin
 const updateSong = asyncHandler(async (req, res) => {
-    
+
     const song = await Song.findByPk(req.params.id)
 
-    if(song)
-    {
+    if (song) {
         song.title = req.body.title || song.title,
-        song.artist = req.body.artist || song.artist,
-        song.genre = req.body.genre || song.genre,
-        song.album = req.body.album || song.album,
-        song.albumImageUrl = req.body.albumImageUrl || song.albumImageUrl,
-        song.youtubeId = req.body.youtubeId || song.youtubeId,
-        song.lyrics = req.body.lyrics || song.lyrics,
-        song.tab = req.body.tab || song.tab
+            song.artist = req.body.artist || song.artist,
+            song.genre = req.body.genre || song.genre,
+            song.album = req.body.album || song.album,
+            song.albumImageUrl = req.body.albumImageUrl || song.albumImageUrl,
+            song.youtubeId = req.body.youtubeId || song.youtubeId,
+            song.lyrics = req.body.lyrics || song.lyrics,
+            song.tab = req.body.tab || song.tab
 
         const updatedSong = await song.save()
-
         return res.status(201).json(updatedSong)
-        
-    }else
-    {
+
+    } else {
         return res.json('Song not found..')
     }
 })
 
-module.exports = { addSong,  getAllSongs, updateSong };
+// @desc    get all songs
+// @route   GET /api/songs
+// @Access  Public
+const getSong = asyncHandler(async (req, res) => {
+
+    const song = await Song.findByPk(req.params.id)
+    if (song) {
+        return res.json(song)
+    }else{ 
+        return res.json('Song not found..')
+    }
+})
+
+// @desc    get all songs
+// @route   GET /api/songs
+// @Access  Private / artist / admin
+const deleteSong = asyncHandler(async (req, res) => {
+
+    const song = await Song.findByPk(req.params.id)
+    if (song) {
+        song.destroy()
+        return res.status(201).json('Sond deleted successfully')
+    }else{ 
+        return res.status(404).json('Song not found..')
+    }
+})
+
+module.exports = { addSong, getAllSongs, updateSong, getSong, deleteSong };
 
