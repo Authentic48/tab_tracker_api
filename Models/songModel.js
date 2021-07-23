@@ -1,6 +1,6 @@
 const bcryptjs = require('bcryptjs')
 const { Sequelize } = require('sequelize')
-const sequelize = require('../Config/db')
+const { sequelize }= require('../Config/db')
 
 
 const Song = sequelize.define("songs", {
