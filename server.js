@@ -34,6 +34,5 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000 
 
-console.log(process.env.PORT)
 
 app.listen(PORT, console.log(`App is running in ${process.env.NODE_ENV} on port ${PORT}`.blue.underline))
